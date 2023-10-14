@@ -1,3 +1,5 @@
+"use client";
+
 import UserComponent from "@/components/userComponent";
 
 const Users = () => {
