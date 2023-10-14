@@ -11,7 +11,10 @@ const UserComponent = ({ userquery }: any) => {
   }, []);
 
   async function getUsers() {
-    const users = await fetch("https://simple-app-unya.vercel.app/api/user");
+    const users = await fetch("https://simple-app-unya.vercel.app/api/user", {
+      method: "GET",
+      cache: "no-store",
+    });
     const response = await users.json();
     setUsers(response);
   }
