@@ -1,6 +1,6 @@
 import UserComponent from "@/components/userComponent";
 
-export const Users = async () => {
+const Users = () => {
   return (
     <div className="h-screen bg-white">
       <UserComponent />
