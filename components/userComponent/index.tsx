@@ -4,7 +4,7 @@ import Pagination from "@/components/pagination";
 import UsePagination from "../usePagination";
 const userTableHeaders = ["name", "email", "username", "birthdate", "address"];
 
-const UserComponent = ({ userquery }: any) => {
+const UserComponent = () => {
   const [users, setUsers] = useState<any>([]);
   useEffect(() => {
     getUsers();
@@ -12,8 +12,7 @@ const UserComponent = ({ userquery }: any) => {
 
   async function getUsers() {
     const users = await fetch("https://simple-app-unya.vercel.app/api/user", {
-      method: "GET",
-      cache: "no-store",
+      next: { revalidate: 0 },
     });
     const response = await users.json();
     setUsers(response);
