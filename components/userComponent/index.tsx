@@ -1,10 +1,22 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Pagination from "@/components/pagination";
 import UsePagination from "../usePagination";
 const userTableHeaders = ["name", "email", "username", "birthdate", "address"];
 
 const UserComponent = ({ userquery }: any) => {
+  const [users, setUsers] = useState<any>([]);
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  async function getUsers() {
+    const users = await fetch("http://localhost:3000/api/user");
+    const response = await users.json();
+    setUsers(response);
+  }
+  console.log(users);
+
   const {
     currentItems,
     currentPage,
@@ -12,7 +24,7 @@ const UserComponent = ({ userquery }: any) => {
     handlePageChange,
     startIndex,
     endIndex,
-  } = UsePagination(10, userquery.users, userquery.total);
+  } = UsePagination(10, users.users, users.usersLength || 0);
 
   return (
     <div>
@@ -30,8 +42,8 @@ const UserComponent = ({ userquery }: any) => {
           {currentItems && currentItems.length && (
             <tbody>
               {currentItems.map(
-                ({ id, name, username, email, birthdate, address }: any) => (
-                  <tr key={id} className="bg-white border-b ">
+                ({ _id, name, username, email, birthdate, address }: any) => (
+                  <tr key={_id} className="bg-white border-b ">
                     <td className="px-6 py-4">{name}</td>
                     <td className="px-6 py-4">{email}</td>
                     <td className="px-6 py-4">{username}</td>
@@ -51,7 +63,7 @@ const UserComponent = ({ userquery }: any) => {
         {...{
           startIndex,
           endIndex,
-          tableDataLength: userquery.total,
+          tableDataLength: users.usersLength,
           handlePageChange,
           currentPage,
           totalPages,

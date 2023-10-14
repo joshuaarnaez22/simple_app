@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
   await connectDB();
   try {
     const users = await User.find({});
+
     return NextResponse.json({
       users,
       usersLength: users.length,

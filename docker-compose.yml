@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/app
     environment:
-      - MONGO_URL=mongodb://admin:password123@mongo:27017/mydatabase?authSource=admin
+      - MONGO_URL=mongodb+srv://meguizo:DevTrio@cluster0.bxhyy.mongodb.net/networking?retryWrites=true&w=majority
 
   mongo:
     image: mongo

@@ -6,8 +6,6 @@ const UsePagination = (
   initialData: any,
   totalItems: number
 ) => {
-  console.log(initialData);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItems, setCurrentItems] = useState<any>();
   const startIndex = (currentPage - 1) * initialItemsPerPage;
@@ -21,10 +19,7 @@ const UsePagination = (
   };
 
   useEffect(() => {
-    console.log(startIndex);
-    console.log(endIndex);
-
-    const data = initialData.slice(startIndex, endIndex);
+    const data = initialData?.slice(startIndex, endIndex);
     setCurrentItems(data);
   }, [endIndex, initialData, startIndex]);
 
