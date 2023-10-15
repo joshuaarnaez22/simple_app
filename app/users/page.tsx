@@ -1,7 +1,10 @@
 "use client";
 
-import UserComponent from "@/components/userComponent";
+import dynamic from "next/dynamic";
 
+const UserComponent = dynamic(() => import("@/components/userComponent"), {
+  ssr: false,
+});
 const Users = () => {
   return (
     <div className="h-screen bg-white">

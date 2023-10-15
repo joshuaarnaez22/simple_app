@@ -2,14 +2,25 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "@/components/pagination";
 import UsePagination from "../usePagination";
+import { useRouter } from "next/navigation";
 const userTableHeaders = ["name", "email", "username", "birthdate", "address"];
 
 const UserComponent = () => {
   const [users, setUsers] = useState<any>([]);
+  const router = useRouter();
+
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const username = localStorage.getItem("username");
+      const email = localStorage.getItem("email");
+      if (!username && !email) {
+        router.push("/");
+        return;
+      }
+    }
     getUsers();
   }, []);
-
+  // https://simple-app-unya.vercel.app/
   async function getUsers() {
     const users = await fetch("https://simple-app-unya.vercel.app/api/user", {
       next: { revalidate: 0 },
@@ -30,6 +41,8 @@ const UserComponent = () => {
 
   return (
     <div>
+      <h1 className="text-black">Welcome {localStorage.getItem("username")}</h1>
+
       <div className="relative overflow-x-auto shadow-sm sm:rounded-lg p-5">
         <table className="w-full text-sm text-left text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
